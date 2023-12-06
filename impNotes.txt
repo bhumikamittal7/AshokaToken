@@ -1,8 +1,4 @@
-Phrase:                 tool doctor prize traffic then trade borrow assume situate lizard step punch
-                        chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#
-
 accountAddress:         0x6b19130F128F110041Cb32Ba6Ff4fBc8E6E6c572
-accountPrivateKey:      b35c80707fb7e3f3b5913af656134493d293827e6dcf51e5e24b88187479bf69
 
 platformName:           UniVeda
 platformLogo:           ashLogo.png
