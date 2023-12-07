@@ -654,24 +654,24 @@ async function initializeQuiz() {
     },
     {
       question:
-        "Assume a processor that supports a page size of 128KBs. How many bits are required to express the offset of every byte present in the page?",
+        "Assume we have a processor that supports a page size of 128KBs. How many bits are required to express the offset of every byte present in the page?",
       options: ["17"],
       correctIndex: 0,
     },
     {
       question:
-        "Assuming that the virtual addresses are represented by 40 bits, what are the total number of pages in the virtual address space of any process running on this processor?",
+        "Assuming that the virtual addresses are represented by 40 bits, what are the total number of pages in the virtual address space of any process running on a processor that supports a page size of 128KBs?",
       options: ["8388608"],
       correctIndex: 0,
     },
     {
       question:
-        "A Program X takes 9 seconds to complete on an Intel processor. The same program takes 12 seconds to complete on a RISC-V processor. What is the speedup of the Intel processor over the RISC-V one? Multiply the seedup by 10 and round off to the nearest integer.",
+        "A program takes 9 seconds to complete on an Intel processor. The same program takes 12 seconds to complete on a RISC-V processor. What is the speedup of the Intel processor over the RISC-V one? Multiply the speedup by 10 and round off to the nearest integer.",
       options: ["13"],
       correctIndex: 0,
     },
     {
-      question: "Which Protocal uses three way handshake process?",
+      question: "Which protocal uses three way handshake process?",
       options: ["TCP"],
       correctIndex: 0,
     },
