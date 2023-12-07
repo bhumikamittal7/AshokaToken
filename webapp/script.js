@@ -638,28 +638,56 @@ async function connectWallet() {
 
 async function initializeQuiz() {
   let score = 0;
-let ashEarned = 0;
+  let ashEarned = 0;
   // Initialize quiz data
   quizData = [
     {
-      question: "What is the capital of France?",
-      options: ["Paris", "Berlin", "Rome", "Madrid"],
+      question:
+        "Welcome to the Comouter Science Quiz. Let's start with basics. Complete the phrase: Hello ____",
+      options: ["world"],
       correctIndex: 0,
     },
     {
-      question: "Which planet is closest to the Sun?",
-      options: ["Mercury", "Venus", "Earth", "Mars"],
+      question:
+        "Assume a processor that supports a page size of 128KBs. How many bits are required to express the offset of every byte present in the page?",
+      options: ["17"],
       correctIndex: 0,
     },
     {
-      question: "Which color of the rainbow do unicorns come in?",
-      options: ["Red", "Orange", "Yellow", "Blue"],
-      correctIndex: 1,
+      question:
+        "Assuming that the virtual addresses are represented by 40 bits, what are the total number of pages in the virtual address space of any process running on this processor?",
+      options: ["8388608"],
+      correctIndex: 0,
+    },
+    {
+      question:
+        "A Program X takes 9 seconds to complete on an Intel processor. The same program takes 12 seconds to complete on a RISC-V processor. What is the speedup of the Intel processor over the RISC-V one? Multiply the seedup by 10 and round off to the nearest integer.",
+      options: ["13"],
+      correctIndex: 0,
+    },
+    {
+      question: "Which Protocal uses three way handshake process?",
+      options: ["TCP"],
+      correctIndex: 0,
+    },
+    {
+      question:
+        "We have designed a new processor that runs at 1500 million cycles per second. What is the frequency of the processor in GHz? Multiply the frequency by 10",
+      options: ["15"],
+      correctIndex: 0,
+    },
+    {
+      question:
+        "Calculate the clock cycle time in ns of a processor whose frequency is 4 GHz. Multiply the answer by 100",
+      options: ["25"],
+      correctIndex: 0,
     },
   ];
+
   // Update the visibility of elements
   const connectWalletBtn = document.getElementById("connectWalletBtn");
   const metmaskdeets = document.getElementById("metmaskdeets");
+  // const mat2003 = document.getElementById("mat2003");
   const univedatitle = document.getElementById("univedatitle");
   const quizElement = document.getElementById("quiz");
   const resultElement = document.getElementById("result");
@@ -668,6 +696,7 @@ let ashEarned = 0;
   if (connectWalletBtn && quizElement && resultElement && redeemRewardBtn) {
     connectWalletBtn.style.display = "none";
     metmaskdeets.style.display = "none";
+    // mat2003.style.display = "none";
     univedatitle.style.display = "none";
     quizElement.style.display = "block";
     resultElement.innerText = ""; // Clear result text
@@ -684,7 +713,8 @@ function loadCurrentQuestion() {
   const quitButton = document.getElementById("redeemRewardBtn");
 
   if (currentQuestionIndex < quizData.length) {
-    document.getElementById("questionTitle").innerText = quizData[currentQuestionIndex].question;
+    document.getElementById("questionTitle").innerText =
+      quizData[currentQuestionIndex].question;
     document.getElementById("textInput").value = ""; // Clear previous input
 
     // Show or hide quit button based on the question index
@@ -695,21 +725,26 @@ function loadCurrentQuestion() {
       return;
     }
     redeemReward();
+    showResultsDialog();
   }
 }
 
-document.getElementById("textInput").addEventListener("keyup", function(event) {
-  if (event.key === "Enter") {
-    selectOption();
-  }
-});
-
+document
+  .getElementById("textInput")
+  .addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      selectOption();
+    }
+  });
 
 /*=======================================================================================================================================*/
 
 function selectOption() {
   const userAnswer = document.getElementById("textInput").value;
-  const correctAnswer = quizData[currentQuestionIndex].options[quizData[currentQuestionIndex].correctIndex];
+  const correctAnswer =
+    quizData[currentQuestionIndex].options[
+      quizData[currentQuestionIndex].correctIndex
+    ];
 
   if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
     document.getElementById("result").innerText = "Correct!";
@@ -717,11 +752,14 @@ function selectOption() {
     score++;
     ashEarned = currentQuestionIndex * 0.1;
     document.getElementById("currentScore").innerText = `Score: ${score}`;
-    document.getElementById("earnedASH").innerText = `ASH Earned: ${ashEarned.toFixed(2)}`;
+    document.getElementById(
+      "earnedASH"
+    ).innerText = `ASH Earned: ${ashEarned.toFixed(2)}`;
 
     loadCurrentQuestion();
   } else {
-    document.getElementById("result").innerText = "Incorrect! Please try again.";
+    document.getElementById("result").innerText =
+      "Incorrect! Please try again.";
   }
 }
 
@@ -771,11 +809,11 @@ document
   .addEventListener("click", redeemReward);
 /*=======================================================================================================================================*/
 function openDialog(content) {
-  const dialogBox = document.getElementById('info-dialog');
-  const dialogContent = document.getElementById('dialog-content');
+  const dialogBox = document.getElementById("info-dialog");
+  const dialogContent = document.getElementById("dialog-content");
 
   dialogContent.innerHTML = content;
-  dialogBox.style.display = 'flex';
+  dialogBox.style.display = "flex";
 }
 
 function closeDialog() {
@@ -790,16 +828,17 @@ function showResultsDialog() {
     <button id ="rewardbttn">Redeem Reward</button>`;
 
   openDialog(dialogContent);
-  const rewardButton = document.getElementById('rewardbttn');
-  rewardButton.onclick = function() {
+  const rewardButton = document.getElementById("rewardbttn");
+  rewardButton.onclick = function () {
     closeDialog();
     // Add logic to change the screen to the thank you screen
     // For example, you can hide the quiz container and display a thank you message
-    document.getElementById('quiz').style.display = 'none';
-    document.getElementById('thankYouScreen').style.display = 'block'; // Assuming you have a div with id "thankYouScreen"
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("thankYouScreen").style.display = "block"; // Assuming you have a div with id "thankYouScreen"
     document.getElementById("thankYouScore").innerText = `Your score: ${score}`;
-    document.getElementById("thankYouASH").innerText = `ASH Earned: ${ashEarned.toFixed(2)}`;
+    document.getElementById(
+      "thankYouASH"
+    ).innerText = `ASH Earned: ${ashEarned.toFixed(2)}`;
     // rewardButton.disabled = true; // Disable the button after it is clicked
   };
-
 }
