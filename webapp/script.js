@@ -621,7 +621,7 @@ async function connectWallet() {
       initializeQuiz();
     } catch (error) {
       console.error("Error connecting to MetaMask:", error);
-      openDialog(`Error connecting to MetaMask: ${error.message || error}`);
+      // openDialog(`Error connecting to MetaMask: ${error.message || error}`);
     }
   } else {
     const errorMessage = "MetaMask not found. Please install MetaMask to play the game.";
