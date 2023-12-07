@@ -692,7 +692,7 @@ async function initializeQuiz() {
   // Update the visibility of elements
   const connectWalletBtn = document.getElementById("connectWalletBtn");
   const metmaskdeets = document.getElementById("metmaskdeets");
-  // const mat2003 = document.getElementById("mat2003");
+  const mat2003 = document.getElementById("mat2003");
   const univedatitle = document.getElementById("univedatitle");
   const quizElement = document.getElementById("quiz");
   const resultElement = document.getElementById("result");
@@ -701,7 +701,7 @@ async function initializeQuiz() {
   if (connectWalletBtn && quizElement && resultElement && redeemRewardBtn) {
     connectWalletBtn.style.display = "none";
     metmaskdeets.style.display = "none";
-    // mat2003.style.display = "none";
+    mat2003.style.display = "none";
     univedatitle.style.display = "none";
     quizElement.style.display = "block";
     resultElement.innerText = ""; // Clear result text
@@ -847,4 +847,9 @@ function openDialog(content) {
 
   dialogContent.innerHTML = content;
   dialogBox.style.display = "flex";
+}
+function openInNewTab() {
+  var url = 'https://bhumikamittal.in/assets/pdf/CS_2361_Project_Report.pdf';
+  var win = window.open(url, '_blank');
+  win.focus();
 }
