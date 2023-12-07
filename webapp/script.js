@@ -607,6 +607,9 @@ let account;
 let quizData;
 let currentQuestionIndex = 0;
 let redeemedReward = false;
+let score = 0;
+let ashEarned = 0;
+
 /*=======================================================================================================================================*/
 
 async function connectWallet() {
@@ -624,7 +627,8 @@ async function connectWallet() {
       // openDialog(`Error connecting to MetaMask: ${error.message || error}`);
     }
   } else {
-    const errorMessage = "MetaMask not found. Please install MetaMask to play the game.";
+    const errorMessage =
+      "MetaMask not found. Please install MetaMask to play the game.";
     console.error(errorMessage);
     openDialog(errorMessage);
   }
@@ -633,6 +637,9 @@ async function connectWallet() {
 /*=======================================================================================================================================*/
 
 async function initializeQuiz() {
+  let score = 0;
+let ashEarned = 0;
+  // Initialize quiz data
   quizData = [
     {
       question: "What is the capital of France?",
@@ -650,70 +657,86 @@ async function initializeQuiz() {
       correctIndex: 1,
     },
   ];
- // Update the visibility of elements
- const connectWalletBtn = document.getElementById("connectWalletBtn");
- const metmaskdeets = document.getElementById("metmaskdeets");
- const univedatitle = document.getElementById("univedatitle");
- const quizElement = document.getElementById("quiz");
- const resultElement = document.getElementById("result");
- const redeemRewardBtn = document.getElementById("redeemRewardBtn");
+  // Update the visibility of elements
+  const connectWalletBtn = document.getElementById("connectWalletBtn");
+  const metmaskdeets = document.getElementById("metmaskdeets");
+  const univedatitle = document.getElementById("univedatitle");
+  const quizElement = document.getElementById("quiz");
+  const resultElement = document.getElementById("result");
+  const redeemRewardBtn = document.getElementById("redeemRewardBtn");
 
- if (connectWalletBtn && quizElement && resultElement && redeemRewardBtn) {
-   connectWalletBtn.style.display = "none";
-   metmaskdeets.style.display = "none";
-   univedatitle.style.display = "none"
-   quizElement.style.display = "block";
-   resultElement.innerText = ""; // Clear result text
-   redeemRewardBtn.style.display = "block"; // Show redeem button
+  if (connectWalletBtn && quizElement && resultElement && redeemRewardBtn) {
+    connectWalletBtn.style.display = "none";
+    metmaskdeets.style.display = "none";
+    univedatitle.style.display = "none";
+    quizElement.style.display = "block";
+    resultElement.innerText = ""; // Clear result text
+    redeemRewardBtn.style.display = "block"; // Show redeem button
 
-   loadCurrentQuestion();
- } else {
-   console.error("Some of the required elements not found.");
- }
+    loadCurrentQuestion();
+  } else {
+    console.error("Some of the required elements not found.");
+  }
 }
 /*=======================================================================================================================================*/
 
 function loadCurrentQuestion() {
+  const quitButton = document.getElementById("redeemRewardBtn");
+
   if (currentQuestionIndex < quizData.length) {
-    document.getElementById("questionTitle").innerText =
-      quizData[currentQuestionIndex].question;
-    let optionsHTML = "";
-    quizData[currentQuestionIndex].options.forEach((option, index) => {
-      optionsHTML += `<button onclick="selectOption(${currentQuestionIndex}, ${index})">${option}</button>`;
-    });
-    document.getElementById("options").innerHTML = optionsHTML;
+    document.getElementById("questionTitle").innerText = quizData[currentQuestionIndex].question;
+    document.getElementById("textInput").value = ""; // Clear previous input
+
+    // Show or hide quit button based on the question index
+    quitButton.style.display = currentQuestionIndex === 0 ? "none" : "block";
   } else {
+    if (currentQuestionIndex === 0) {
+      document.getElementById("result").innerText = "No reward earned";
+      return;
+    }
     redeemReward();
   }
 }
+
+document.getElementById("textInput").addEventListener("keyup", function(event) {
+  if (event.key === "Enter") {
+    selectOption();
+  }
+});
+
+
 /*=======================================================================================================================================*/
 
-function selectOption(questionIndex, selectedIndex) {
-  const selectedOption = quizData[questionIndex].options[selectedIndex];
-  const correctOption =
-    quizData[questionIndex].options[quizData[questionIndex].correctIndex];
+function selectOption() {
+  const userAnswer = document.getElementById("textInput").value;
+  const correctAnswer = quizData[currentQuestionIndex].options[quizData[currentQuestionIndex].correctIndex];
 
-  if (selectedOption === correctOption) {
+  if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
     document.getElementById("result").innerText = "Correct!";
     currentQuestionIndex++;
+    score++;
+    ashEarned = currentQuestionIndex * 0.1;
+    document.getElementById("currentScore").innerText = `Score: ${score}`;
+    document.getElementById("earnedASH").innerText = `ASH Earned: ${ashEarned.toFixed(2)}`;
+
     loadCurrentQuestion();
   } else {
-    document.getElementById("result").innerText =
-      "Incorrect! Please try again.";
+    document.getElementById("result").innerText = "Incorrect! Please try again.";
   }
 }
+
 /*=======================================================================================================================================*/
 async function redeemReward() {
   if (!redeemedReward) {
-    rewards = (currentQuestionIndex) * 0.1;
-  if (currentQuestionIndex === quizData.length){
-    rewards = quizData.length * 0.1;}
-  console.log("Rewards: ", rewards )
-  if (rewards === 0){
-    document.getElementById("result").innerText =
-      "No reward earned";
-    return;
-  }
+    rewards = currentQuestionIndex * 0.1;
+    if (currentQuestionIndex === quizData.length) {
+      rewards = quizData.length * 0.1;
+    }
+    console.log("Rewards: ", rewards);
+    if (rewards === 0) {
+      document.getElementById("result").innerText = "No reward earned";
+      return;
+    }
 
     try {
       const tokenContract = new web3.eth.Contract(
@@ -756,6 +779,27 @@ function openDialog(content) {
 }
 
 function closeDialog() {
-  const dialogBox = document.getElementById('info-dialog');
-  dialogBox.style.display = 'none';
+  const dialogBox = document.getElementById("info-dialog");
+  dialogBox.style.display = "none";
+}
+
+function showResultsDialog() {
+  const dialogContent = `
+    <p>Score: ${score}</p>
+    <p>ASH Earned: ${ashEarned.toFixed(2)}</p>
+    <button id ="rewardbttn">Redeem Reward</button>`;
+
+  openDialog(dialogContent);
+  const rewardButton = document.getElementById('rewardbttn');
+  rewardButton.onclick = function() {
+    closeDialog();
+    // Add logic to change the screen to the thank you screen
+    // For example, you can hide the quiz container and display a thank you message
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('thankYouScreen').style.display = 'block'; // Assuming you have a div with id "thankYouScreen"
+    document.getElementById("thankYouScore").innerText = `Your score: ${score}`;
+    document.getElementById("thankYouASH").innerText = `ASH Earned: ${ashEarned.toFixed(2)}`;
+    // rewardButton.disabled = true; // Disable the button after it is clicked
+  };
+
 }
