@@ -648,7 +648,7 @@ async function initializeQuiz() {
   quizData = [
     {
       question:
-        "Welcome to the Comouter Science Quiz. Let's start with basics. Complete the phrase: Hello ____",
+        "Welcome to the COS Extra Credit. Let's start with basics. Complete the phrase: Hello ____",
       options: ["world"],
       correctIndex: 0,
     },
