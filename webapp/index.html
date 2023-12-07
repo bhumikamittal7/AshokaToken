@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<!---------------------------------------------------------------------------------------------------------------------------------------->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
+    <link rel="icon" href="assets/ashLogo.png" type="image/x-icon" />
+    <title>UniVeda</title>
+</head>
+<!---------------------------------------------------------------------------------------------------------------------------------------->
+<body>
+    <div class="homepage-container">
+        <img class="background-image" src="assets/UniVeda.jpg">
+        <div class ="title-homepage" id = "univedatitle">
+            <h1>UniVeda</h1>
+            <!-- <h2>Decentralized University</h2> -->
+        </div>
+        <div class="buttons-container">
+            <button class="action-button" onclick="connectWallet()" id="connectWalletBtn">Connect Metamask & Start</button>
+            <button class="info-button" id="metmaskdeets" onclick="openDialog('MetaMask is a new type of crypto wallet that is aimed at helping cryptocurrency users establish their identities on the internet. The service is quick and easy to use, and the process of setting up a new account is swift and painless. <br><br> The first thing to do is to create a seed phrase, which will serve as a backup password. During the process, you will have to confirm your seed phrase using a confirmation button and a message. After installing the MetaMask extension, go to your browser\'s extension\'s settings and sign in to the site.<br><br> You\'ll be asked to create a strong password. Accept MetaMask\'s terms of service, and save your seed phrase. Next, you\'ll be prompted to accept the terms of service and receive a unique Ethereum wallet address. Once you\'ve confirmed your new account, you\'re ready to use MetaMask.<br><br> Once you sign in to your MetaMask account, you can connect it to the network of your choice. To add a network, select Networks and then click Add Network. Once you\'ve added the network, you can add tokens to your account next.<br><br> MetaMask is available as a free Google Chrome extension, as well as for IOS and Android native applications. It also supports Firefox, Chrome, Brave, and Edge Browser. You can find step-by-step instructions on how to set up your account on MetaMask\'s website')">What is Metamask</button>
+            <!-- <button class="info-button" onclick="openDialog('What is UniVeda')">What is UniVeda</button> -->
+        </div>
+    </div>
+
+    <div id="info-dialog" class="dialog-box">
+        <span class="close-button" onclick="closeDialog()">&times;</span>
+        <div id="dialog-content"></div>
+    </div>
+
+    <!-- now when the metamask is connected, go to the next screen with the questions -->
+   <div id="quiz" style="display: none;">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <span id="currentScore">Score: 0</span>
+                <span id="earnedASH">ASH Earned: 0</span>
+            </div>
+            <h2 id="questionTitle"></h2>
+            <div id="options"></div>
+            <p id="result"></p>
+            <button id="redeemRewardBtn" onclick="quitQuiz()">Quit</button>
+            <!-- <button id="redeemRewardBtn" style="display: none;" onclick="redeemReward()">Redeem ACS Tokens</button> -->
+        </div>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------------------------------->
+<script src="script.js"></script>
+<!---------------------------------------------------------------------------------------------------------------------------------------->
+</body>
+
+</html>
