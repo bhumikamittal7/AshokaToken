@@ -1,0 +1,7 @@
+Red:        #c5122f
+Blue:       #0d3862
+White:      #ffffff
+Black:      #000000
+
+Font:       Georgia
+            Open Sans

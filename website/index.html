@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniVeda - Computer Networks Edition</title>
+    <title>Cryptic Hunt - Computer Networks Edition</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome to the UniVeda!</h1>
-        <h2>Embark on a journey through the world of Computer Networks and earn ASH tokens!</h2>
+        <h1>Welcome to the Cryptic Hunt!</h1>
+        <h2>Embark on a journey through the world of Computer Networks and earn ACS tokens!</h2>
         <button id="connectWalletBtn">Connect MetaMask Wallet</button>
 
         <div id="quiz" style="display: none;">
@@ -23,11 +23,12 @@
             <p id="result"></p>
         </div>
 
-        <button id="redeemRewardBtn" style="display: none;">Redeem ASH Tokens</button>
+        <button id="redeemRewardBtn" style="display: none;">Redeem ACS Tokens</button>
     </div>
 
     <script>
-        const tokenContractAddress = "0xfF4d69d4A4212eE465F82704fEB59B8104690FCE";
+        const tokenContractAddress = "0x36508f38063B80113457e284b5D4BB99B667a23E";
+        // const tokenContractAddress2 = "0x698e3f97fb993400a546e499e7B0ac9bb06Cfaea"
         const tokenABI =  [
 			{
 				"inputs": [
@@ -627,9 +628,8 @@
 				"stateMutability": "nonpayable",
 				"type": "function"
 			}
-                        ]
-
-
+		];
+        
         let web3;
         let account;
         let quizData;
@@ -717,8 +717,11 @@
                     await tokenContract.methods.RewardUser(account, rewardsInSmallestUnit).send({from: account});
                     console.log('700');
 
+
+
+
                 } catch (error) {
-                    console.error('Error transferring ASH:', error);
+                    console.error('Error transferring ACS:', error);
                     // Update the UI to inform the user about the error
                     document.getElementById("result").innerText = `Error: ${error.message || error}`;
                     return; // Stop further execution on error
